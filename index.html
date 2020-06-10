@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>J-Photo Editor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h3>JK-Image-Editor</h3>
+    <div class="container">
+      <div class="canvas-container">
+        <canvas class="canvas"></canvas>
+      </div>
+    </div>
+    <div class="upload-download">
+      <div class="upload-reset">
+        <label for="selectImage" class="custom-file-upload">
+          Upload Image
+        </label>
+        <input type="file" id="selectImage" />
+        <button class="download">
+          <a download href="#" class="button" id="btn-download"
+            >Download Image</a
+          >
+        </button>
+        <!-- <button type="button" name="button" id="reset" class="reset">
+          Reset
+        </button> -->
+      </div>
+    </div>
+    <div class="controlers">
+      <ul class="control-buttons">
+        <li class="image-editor-empty-div">
+          <div class="empty-horizontal"></div>
+        </li>
+        <li class="image-editor-submenu">
+          <form id="imageEditor">
+            <div class="image-editor-slider-wrap">
+              <div class="image-editor-sliders">
+                <label for="br"
+                  >Brightness (<span id="br-value">100</span>)</label
+                ><br />
+                <input
+                  id="br"
+                  name="br"
+                  type="range"
+                  min="0"
+                  max="200"
+                  value="100"
+                />
+              </div>
+              <div class="image-editor-sliders">
+                <label for="ct"
+                  >Contrast (<span id="contrast-value">100</span>)</label
+                ><br />
+                <input
+                  id="ct"
+                  name="ct"
+                  type="range"
+                  min="0"
+                  max="200"
+                  value="100"
+                />
+              </div>
+              <div class="image-editor-sliders">
+                <label for="opacity"
+                  >Opacity (<span id="opacity-value">100</span>)</label
+                ><br />
+                <input
+                  id="opacity"
+                  name="opacity"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="100"
+                />
+              </div>
+              <div class="image-editor-sliders">
+                <label for="blur">Blur (<span id="blur-value">0</span>)</label
+                ><br />
+                <input
+                  id="blur"
+                  name="blur"
+                  type="range"
+                  min="0"
+                  max="10"
+                  value="0"
+                />
+              </div>
+              <div class="image-editor-sliders">
+                <label for="huer">Hue (<span id="hue-value">0</span>)</label
+                ><br />
+                <input
+                  id="huer"
+                  name="huer"
+                  type="range"
+                  min="0"
+                  max="360"
+                  value="0"
+                />
+              </div>
+              <div class="image-editor-sliders">
+                <label for="saturate"
+                  >Saturation (<span id="saturation-value">100</span>)</label
+                ><br />
+                <input
+                  id="saturation"
+                  name="saturate"
+                  type="range"
+                  min="0"
+                  max="500"
+                  value="100"
+                />
+              </div>
+            </div>
+          </form>
+        </li>
+
+        <li class="partition">
+          <div class="empty"></div>
+        </li>
+
+        <li class="image-editor-submenu">
+          <div class="image-editor-checkbox-wrap">
+            <div>
+              <button type="button" name="button" class="rotate">
+                Rotate Image
+              </button>
+            </div>
+            <br />
+            <div>
+              <button disabled type="button" name="button" id="invertColors">
+                Invert Colors
+              </button>
+              <input type="checkbox" class="invert-Colors" />
+            </div>
+            <br />
+            <div>
+              <button disabled type="button" name="button" id="rgbsplit">
+                RGB Split
+              </button>
+              <input type="checkbox" class="rgb-split" />
+            </div>
+          </div>
+        </li>
+
+        <li class="partition">
+          <div class="empty"></div>
+        </li>
+
+        <li class="image-editor-submenu">
+          <div class="image-editor-filter-wrap">
+            <div>
+              <p>Apply a filter</p>
+              <br />
+              <select id="filters">
+                <option value="none">No Filter</option>
+                <option value="grayscale">Grayscale</option>
+                <option value="sepia">Sepia</option>
+                <option value="red">Red</option>
+                <option value="cold">Cold</option>
+                <option value="warm">Warm</option>
+                <option value="warmdark">Warm Dark</option>
+                <option value="cyan">Cyan</option>
+                <option value="yellow">Yellow</option>
+                <option value="washedout">Washed Out</option>
+              </select>
+              <br />
+              <br />
+              <button type="button" name="button" id="reset" class="reset">
+                Reset Image
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
