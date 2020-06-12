@@ -24,6 +24,7 @@ body {
   padding: 30px;
   display: inline-block;
   border: 2px solid gray;
+  cursor: crosshair;
 }
 
 .image-editor-submenu {
@@ -191,4 +192,11 @@ input[type='range'] {
 h3 {
   color: #ffaa22;
   -webkit-text-stroke: 0.3px white;
+}
+
+#cropDiv {
+  position: absolute;
+  border: 3px solid blue;
+  cursor: crosshair;
+  display: none;
 }
