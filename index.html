@@ -240,6 +240,13 @@
       <option value="soft-light">soft-light</option>
     </select>
   </div>
+  <div class="masking">
+    <button id='maskButton'>add adjustment</button>
+    <div id="layerContainer" style="border: 1px solid gray; height: 200px; width: 100px; width: 100px; display: flex">
+      <input id='layerCheckbox' type='radio' checked="checked" style=" visibility: hidden">
+      <div id="layer" style=" visibility: hidden; width: 30px; height: 20px; border: 1px solid gray;"></div>
+    </div>
+  </div>
   <script src="index.js"></script>
   <script src="utils.js"></script>
   <script src="filters.js"></script>
