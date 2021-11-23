@@ -239,5 +239,54 @@ const Utils = {
     
               let rgb4 = [r,g,b]
               return rgb4;
+      },
+
+      adjustHSL(image){
+        for (let i=0; i<image.data.length; i+=4){
+            let r = image.data[i + 0];
+            let g = image.data[i + 1];
+            let b = image.data[i + 2];
+       
+            const hsl2 = this.RGBToHSL(r, g, b)
+      
+            let fromL = hsl2[2];
+            let toL = rlRange.value;
+            let greenToL = rlRange.value;
+            let blueToL = blRange.value;
+            let percent = 0.2
+      
+            let fromS = hsl2[1]
+            let toS = rsRange.value;
+            let percentL = 10
+           
+      
+          if((0<hsl2[0] && hsl2[0]<60 )|| (340<hsl2[0] && hsl2[0]<360) ){
+              rRange.value === 0 ? hsl2[0] = hsl2[0] : hsl2[0] = hsl2[0] + parseInt(rRange.value)
+              rlRange.value === 50 ? hsl2[2] = hsl2[2] : hsl2[2] = fromL + percent * (toL - fromL)
+              // rsRange.value === 50 ? hsl2[1] = hsl2[1] : hsl2[1] = fromS + percentL * (toS - fromS)
+              rsRange.value === 50 ? hsl2[1] = hsl2[1] : hsl2[1] = rsRange.value
+      
+          }
+      
+              if(120<hsl2[0] && hsl2[0]<240 ){
+                  gRange.value === 0 ? hsl2[0] = hsl2[0] : hsl2[0] = parseInt(gRange.value)
+                  glRange.value === 50 ? hsl2[2] = hsl2[2] : hsl2[2] = fromL + percent * (greenToL - fromL)
+                  gsRange.value === 50 ? hsl2[1] = hsl2[1] : hsl2[1] = gsRange.value
+              }
+      
+              if(120<hsl2[0] && hsl2[0]<240 ){
+                  bRange.value === 0 ? hsl2[0] = hsl2[0] : hsl2[0] = parseInt(bRange.value)
+                  blRange.value === 50 ? hsl2[2] = hsl2[2] : hsl2[2] = fromL + percent * (blueToL - fromL)
+                  bsRange.value === 50 ? hsl2[1] = hsl2[1] : hsl2[1] = bsRange.value
+              }
+      
+            let rgb2 = Utils.HSLToRGB(hsl2[0],hsl2[1], hsl2[2])
+      
+            image.data[i + 0] = rgb2[0];
+            image.data[i + 1] = rgb2[1];
+            image.data[i + 2] = rgb2[2];
+        }
+      
+        return image;
       }
 };
