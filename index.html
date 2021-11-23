@@ -211,6 +211,35 @@
     <label for="bl" style="color: orange"></label>
     <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
   </div>
+  <div class="btn-wrapper">
+    <div id='colorRange' style="width:80px;height:30px;margin:auto;padding:2px"></div>
+    <!-- <button id='treshold'>treshold</button> -->
+    <button id='showOriginal'>Show Original</button>
+    <button id='undogr'>Undo Gradient</button>
+  </div>
+  <br />
+  <br />
+  <div class='color-blendingModes'>
+    <label for="head">ColorStop_0</label>
+    <input type="color" id="colorStop_0" name="head" value="#000000">
+  
+    <label for="body" style="margin-left: 10px;">ColorStop_1</label>
+    <input type="color" id="colorStop_1" name="body" value="#000000">
+  
+    <select id="blending">
+      <option value="none">blending mode</option>
+      <option value="lighten">lighten</option>
+      <option value="screen">screen</option>
+      <option value="multiply">multiply</option>
+      <option value="difference">difference</option>
+      <option value="hue">hue</option>
+      <option value="exclusion">exclusion</option>
+      <option value="color">color</option>
+      <option value="saturation">saturation</option>
+      <option value="luminosity">luminosity</option>
+      <option value="soft-light">soft-light</option>
+    </select>
+  </div>
   <script src="index.js"></script>
   <script src="utils.js"></script>
   <script src="filters.js"></script>
