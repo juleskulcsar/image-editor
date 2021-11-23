@@ -372,5 +372,17 @@ const Utils = {
         x: (event.clientX - rect.left) * scaleX,   // scale mouse coordinates after they have
         y: (event.clientY - rect.top) * scaleY     // been adjusted to be relative to element
       }
+    },
+
+    getElementPosition(obj) {
+        let curleft = 0, curtop = 0;
+        if (obj.offsetParent) {
+            do {
+                curleft += obj.offsetLeft;
+                curtop += obj.offsetTop;
+            } while (obj = obj.offsetParent);
+            return { x: curleft, y: curtop };
+        }
+        return undefined;
     }
 };
