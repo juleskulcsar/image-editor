@@ -1,7 +1,17 @@
 let div = document.querySelector('.canvas-container');
 let canvas = document.createElement('canvas');
 canvas.classList.add('canvas');
+let canvass = document.createElement('canvas');
+let canvasg = document.createElement('canvas');
+canvass.classList.add('.canvass');
+canvasg.classList.add('.canvasg');
+canvas.style.position = 'absolute'
+canvass.style.position = 'absolute'
+canvasg.style.position = 'absolute'
 const ctx = canvas.getContext('2d');
+const ctxx = canvass.getContext('2d');
+const ctxg = canvasg.getContext('2d');
+ctxg.globalAlpha = 0.5;
 let img = new Image();
 
 let grayscaleValue = document.getElementById('gs-value');
@@ -148,9 +158,17 @@ function draw(img) {
     // const testPosition = getTextPos();
     // console.log('testPosition: ', testPosition);
     canvas.style.height = '100%';
+    canvass.style.height = '100%';
+    canvasg.style.height = '100%';
 
     canvas.width = img.height;
     canvas.height = img.width;
+
+    canvass.width = img.height;
+    canvass.height = img.width;
+
+    canvasg.width = img.height;
+    canvasg.height = img.width;
 
     imgSize = Utils.aspectRatio(
         img.width,
@@ -159,10 +177,22 @@ function draw(img) {
         canvas.height
     );
 
+    imgSizee = Utils.aspectRatio(
+    img.width,
+    img.height,
+    canvass.width,
+    canvass.height
+  );
+
     const centerShift_x = (canvas.width - imgSize.width) / 2;
     const centerShift_y = (canvas.height - imgSize.height) / 2;
 
+    const centerShift_xx = (canvass.width - imgSizee.width) / 2;
+    const centerShift_yy = (canvass.height - imgSizee.height) / 2;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctxx.clearRect(0, 0, canvass.width, canvass.height);
+    ctxg.clearRect(0, 0, canvasg.width, canvasg.height);
 
     // let userText = image;
 
@@ -181,6 +211,30 @@ function draw(img) {
             imgSize.height
         );
     };
+
+    ctxx.drawImage(
+    img,
+    0,
+    0,
+    img.width,
+    img.height,
+    centerShift_xx,
+    centerShift_yy,
+    imgSizee.width,
+    imgSizee.height
+  );
+
+  ctxg.drawImage(
+    img,
+    0,
+    0,
+    img.width,
+    img.height,
+    centerShift_xx,
+    centerShift_yy,
+    imgSizee.width,
+    imgSizee.height
+  );
     // ctx.globalAlpha = 0.95;
     // // ctx.clearRect(0, 0, canvas.width, canvas.height);
     // ctx.font = '40pt Calibri';
@@ -193,4 +247,6 @@ function draw(img) {
     // ctx.fillText('My TEXT!!!!!!!!', 20, 20);
     Utils.rotate(0);
     pixels = ctx.getImageData(0, 0, imgSize.width, imgSize.height);
+    pixelss = ctxx.getImageData(0, 0, imgSizee.width, imgSizee.height);
+    pixelsg = ctxg.getImageData(0, 0, imgSizee.width, imgSizee.height);
 }
