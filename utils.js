@@ -344,5 +344,22 @@ const Utils = {
         if (r > 255 || g > 255 || b > 255)
             throw "Invalid color component";
         return ((r << 16) | (g << 8) | b).toString(16);
+    },
+
+    changeRGB(imageData) {
+        for (let i=0; i<imageData.data.length; i+=4){
+            let r = imageData.data[i + 0];
+            let g = imageData.data[i + 1];
+            let b = imageData.data[i + 2];
+            let a = imageData.data[i + 3];
+    
+            if(r=== srgb[0] && g ===srgb[1] && b=== srgb[2]){
+                imageData.data[i + 0] = parseInt(rRange.value)
+                imageData.data[i + 1] = parseInt(gRange.value)
+                imageData.data[i + 2] = parseInt(bRange.value)       
+            }
+        }
+        ctx.putImageData(imageData, 0, 0);
+        return imageData.data;
     }
 };
