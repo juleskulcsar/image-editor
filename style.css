@@ -10,6 +10,19 @@ body {
 
 .controlers {
     text-align: center;
+    display: flex;
+}
+
+.p-hsl {
+    margin-top: 1em;
+}
+
+.hsl {
+    text-align: center;
+}
+
+.hslSlider {
+    width: 100%;
 }
 
 .control-buttons {
@@ -19,7 +32,7 @@ body {
 
 .canvas-container {
     border-radius: 2px;
-    height: 350px;
+    height: 600px;
     width: 700px;
     background-color: black;
     padding: 30px;

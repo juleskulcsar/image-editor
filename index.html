@@ -124,6 +124,54 @@
       <div id="layerContainer"></div>
       <button id='maskButton'>add new layer</button>
     </div>
+    <div class="empty-horizontal"></div>
+    <div class="hsl">
+      <div class="controllers">
+        <p class="p-hsl">hue</p>
+        <div>
+          <!-- <label for="r" style="color: orange;">H &nbsp</label> -->
+          <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="g" style="color: orange"> </label> -->
+          <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="b" style="color: orange"></label> -->
+          <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
+        </div>
+      </div>
+      <div class="controllers">
+        <p class="p-hsl">saturation</p>
+        <div>
+          <!-- <label for="rs" style="color: orange;">S &nbsp</label> -->
+          <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="gs" style="color: orange"></label> -->
+          <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="bs" style="color: orange"></label> -->
+          <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+      </div>
+      <div class="controllers">
+        <p class="p-hsl">lightness</p>
+        <div>
+          <!-- <label for="rl" style="color: orange;">L &nbsp</label> -->
+          <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="gl" style="color: orange"></label> -->
+          <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+        <div>
+          <!-- <label for="bl" style="color: orange"></label> -->
+          <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <button id='showOriginal'>Show Original</button>
@@ -134,7 +182,7 @@
       </li>
 
       <li class="image-editor-submenu">
-        <div class="controllers">
+        <!-- <div class="controllers">
           <label for="r" style="color: orange;">H &nbsp</label>
           <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
           <label for="g" style="color: orange"> </label>
@@ -157,7 +205,7 @@
           <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
           <label for="bl" style="color: orange"></label>
           <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
+        </div> -->
       </li>
 
       <li class="partition">
