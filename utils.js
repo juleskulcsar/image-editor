@@ -10,6 +10,8 @@ const Utils = {
             }
             // rotate(0);
             div.appendChild(canvas);
+            div.appendChild(canvass);
+            div.appendChild(canvasg);
             draw(img);
         };
     },
@@ -124,6 +126,8 @@ const Utils = {
     rotate(degrees) {
         //   canvas = document.querySelector('.canvas');
         let ctx = canvas.getContext('2d');
+        let ctxx = canvass.getContext('2d');
+        let ctxg = canvasg.getContext('2d');
 
         if (degrees == 90 || degrees == 270) {
             canvas.width = img.height;
@@ -133,7 +137,26 @@ const Utils = {
             canvas.height = img.height;
         }
 
+        if (degrees == 90 || degrees == 270) {
+            canvass.width = img.height;
+            canvass.height = img.width;
+        } else {
+            canvass.width = img.width;
+            canvass.height = img.height;
+        }
+
+        if (degrees == 90 || degrees == 270) {
+            canvasg.width = img.height;
+            canvasg.height = img.width;
+        } else {
+            canvasg.width = img.width;
+            canvasg.height = img.height;
+        }
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctxx.clearRect(0, 0, canvass.width, canvass.height);
+        ctxg.clearRect(0, 0, canvasg.width, canvasg.height);
+
         if (degrees == 90 || degrees == 270) {
             ctx.translate(img.height / 2, img.width / 2);
         } else {
@@ -141,6 +164,24 @@ const Utils = {
         }
         ctx.rotate((degrees * Math.PI) / 180);
         ctx.drawImage(img, -img.width / 2, -img.height / 2);
+
+        if (degrees == 90 || degrees == 270) {
+            ctxx.translate(img.height / 2, img.width / 2);
+        } else {
+            ctxx.translate(img.width / 2, img.height / 2);
+        }
+        ctxx.rotate((degrees * Math.PI) / 180);
+        ctxx.drawImage(img, -img.width / 2, -img.height / 2);
+
+
+        if (degrees == 90 || degrees == 270) {
+            ctxg.translate(img.height / 2, img.width / 2);
+        } else {
+            ctxg.translate(img.width / 2, img.height / 2);
+        }
+        
+        ctxg.rotate((degrees * Math.PI) / 180);
+        ctxg.drawImage(img, -img.width / 2, -img.height / 2);
     },
 
     aspectRatio(srcWidth, srcHeight, maxWidth, maxHeight) {

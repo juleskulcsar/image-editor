@@ -4,19 +4,104 @@
 <head>
   <meta charset="UTF-8" />
   <title>J-Photo Editor</title>
-
   <link href="https://fonts.googleapis.com/css?family=Suez+One|Raleway|Open+Sans" rel="stylesheet" />
   <!-- <script src="https://kit.fontawesome.com/1fe111763f.js" crossorigin="anonymous"></script> -->
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <h3>JK-Image-Editor</h3>
+  <h3>Image-Editor</h3>
+  <div class="top">
+      <div class="image-editor-slider-wrap">
+        <div class="image-editor-sliders">
+          <label for="br">Brightness (<span id="br-value">100</span>)</label><br />
+          <input id="br" name="br" type="range" min="0" max="200" value="100" />
+        </div>
+        <div class="image-editor-sliders">
+          <label for="ct">Contrast (<span id="contrast-value">100</span>)</label><br />
+          <input id="ct" name="ct" type="range" min="0" max="200" value="100" />
+        </div>
+        <div class="image-editor-sliders">
+          <label for="opacity">Opacity (<span id="opacity-value">100</span>)</label><br />
+          <input id="opacity" name="opacity" type="range" min="0" max="100" value="100" />
+        </div>
+        <div class="image-editor-sliders">
+          <label for="blur">Blur (<span id="blur-value">0</span>)</label><br />
+          <input id="blur" name="blur" type="range" min="0" max="10" value="0" />
+        </div>
+        <div class="image-editor-sliders">
+          <label for="huer">Hue (<span id="hue-value">0</span>)</label><br />
+          <input id="huer" name="huer" type="range" min="0" max="360" value="0" />
+        </div>
+        <div class="image-editor-sliders">
+          <label for="saturate">Saturation (<span id="saturation-value">100</span>)</label><br />
+          <input id="saturation" name="saturate" type="range" min="0" max="500" value="100" />
+        </div>
+      </div>
   <div class="container">
     <div id="textDiv"></div>
     <div class="canvas-container"></div>
   </div>
+  <div class="top-right-section">
+    <p>Gradient</p>
+    <div class="gradient-container">
+      <div class='color-blendingModes'>
+        <div>
+          <!-- <label class="input-color-label" for="head">Stop 0</label> -->
+          <div class="input-color-container">
+            <input type="color" id="colorStop_0" name="head" value="#ed6868">
+          </div>
+        </div>
+        <div>
+          <!-- <label class="input-color-label" for="body" >Stop 1</label> -->
+          <div class="input-color-container">
+            <input type="color" id="colorStop_1" name="body" value="#000000">
+          </div>
+        </div>
+    </div>
+    <div > 
+      <select id="blending">
+        <option value="none">blending mode</option>
+        <option value="lighten">lighten</option>
+        <option value="screen">screen</option>
+        <option value="multiply">multiply</option>
+        <option value="difference">difference</option>
+        <option value="hue">hue</option>
+        <option value="exclusion">exclusion</option>
+        <option value="color">color</option>
+        <option value="saturation">saturation</option>
+        <option value="luminosity">luminosity</option>
+        <option value="soft-light">soft-light</option>
+      </select>
+    </div>
+    </div>
+    <div class="empty-horizontal"></div>
+    <p>Overlay</p>
+    <div>
+      <select id="filters">
+        <option value="none">No Overlay</option>
+        <option value="grayscale">Grayscale</option>
+        <option value="sepia">Sepia</option>
+        <option value="red">Red</option>
+        <option value="cold">Cold</option>
+        <option value="warm">Warm</option>
+        <option value="warmdark">Warm Dark</option>
+        <option value="cyan">Cyan</option>
+        <option value="yellow">Yellow</option>
+        <option value="washedout">Washed Out</option>
+      </select>
+    </div>
+    <div class="empty-horizontal"></div>
+    <p>Adjustment Layers</p>
+    <div class="masking">
+      <button id='maskButton'>new adjustment layer</button>
+      <div id="layerContainer" >
+        <input id='layerCheckbox' type='radio' checked="checked">
+        <div id="layer" ></div>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="upload-download">
     <div class="upload-reset">
       <label for="selectImage" class="custom-file-upload">
@@ -33,35 +118,32 @@
       <li class="image-editor-empty-div">
         <div class="empty-horizontal"></div>
       </li>
+
       <li class="image-editor-submenu">
-        <form id="imageEditor">
-          <div class="image-editor-slider-wrap">
-            <div class="image-editor-sliders">
-              <label for="br">Brightness (<span id="br-value">100</span>)</label><br />
-              <input id="br" name="br" type="range" min="0" max="200" value="100" />
-            </div>
-            <div class="image-editor-sliders">
-              <label for="ct">Contrast (<span id="contrast-value">100</span>)</label><br />
-              <input id="ct" name="ct" type="range" min="0" max="200" value="100" />
-            </div>
-            <div class="image-editor-sliders">
-              <label for="opacity">Opacity (<span id="opacity-value">100</span>)</label><br />
-              <input id="opacity" name="opacity" type="range" min="0" max="100" value="100" />
-            </div>
-            <div class="image-editor-sliders">
-              <label for="blur">Blur (<span id="blur-value">0</span>)</label><br />
-              <input id="blur" name="blur" type="range" min="0" max="10" value="0" />
-            </div>
-            <div class="image-editor-sliders">
-              <label for="huer">Hue (<span id="hue-value">0</span>)</label><br />
-              <input id="huer" name="huer" type="range" min="0" max="360" value="0" />
-            </div>
-            <div class="image-editor-sliders">
-              <label for="saturate">Saturation (<span id="saturation-value">100</span>)</label><br />
-              <input id="saturation" name="saturate" type="range" min="0" max="500" value="100" />
-            </div>
-          </div>
-        </form>
+        <div class="controllers">
+          <label for="r" style="color: orange;">H &nbsp</label>
+          <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
+          <label for="g" style="color: orange"> </label>
+          <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
+          <label for="b" style="color: orange"></label>
+          <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
+        </div>
+        <div class="controllers">
+          <label for="rs" style="color: orange;">S &nbsp</label>
+          <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
+          <label for="gs" style="color: orange"></label>
+          <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
+          <label for="bs" style="color: orange"></label>
+          <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
+        <div class="controllers">
+          <label for="rl" style="color: orange;">L &nbsp</label>
+          <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
+          <label for="gl" style="color: orange"></label>
+          <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
+          <label for="bl" style="color: orange"></label>
+          <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
+        </div>
       </li>
 
       <li class="partition">
@@ -187,29 +269,12 @@
       </li>
     </ul>
   </div>
-  <div class="controllers">
-    <label for="r" style="color: orange;">H &nbsp</label>
-    <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
-    <label for="g" style="color: orange"> </label>
-    <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
-    <label for="b" style="color: orange"></label>
-    <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
-  </div>
-  <div class="controllers">
-    <label for="rs" style="color: orange;">S &nbsp</label>
-    <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
-    <label for="gs" style="color: orange"></label>
-    <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
-    <label for="bs" style="color: orange"></label>
-    <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
-  </div>
-  <div class="controllers">
-    <label for="rl" style="color: orange;">L &nbsp</label>
-    <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
-    <label for="gl" style="color: orange"></label>
-    <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
-    <label for="bl" style="color: orange"></label>
-    <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
+  <div class="controllers" style="display: flex;
+              justify-content: space-between;">
+    <div class='circle' id='red'></div>
+    <div class='circle' id='green'></div>
+    <div class='circle' id='blue'></div>
+  
   </div>
   <div class="btn-wrapper">
     <div id='colorRange' style="width:80px;height:30px;margin:auto;padding:2px"></div>
@@ -219,7 +284,7 @@
   </div>
   <br />
   <br />
-  <div class='color-blendingModes'>
+  <!-- <div class='color-blendingModes'>
     <label for="head">ColorStop_0</label>
     <input type="color" id="colorStop_0" name="head" value="#000000">
   
@@ -246,7 +311,7 @@
       <input id='layerCheckbox' type='radio' checked="checked" style=" visibility: hidden">
       <div id="layer" style=" visibility: hidden; width: 30px; height: 20px; border: 1px solid gray;"></div>
     </div>
-  </div>
+  </div> -->
   <script src="index.js"></script>
   <script src="utils.js"></script>
   <script src="filters.js"></script>

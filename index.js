@@ -1,13 +1,14 @@
 let div = document.querySelector('.canvas-container');
 let canvas = document.createElement('canvas');
-canvas.classList.add('canvas');
 let canvass = document.createElement('canvas');
 let canvasg = document.createElement('canvas');
+canvas.classList.add('.canvas');
 canvass.classList.add('.canvass');
 canvasg.classList.add('.canvasg');
 canvas.style.position = 'absolute'
 canvass.style.position = 'absolute'
 canvasg.style.position = 'absolute'
+ 
 const ctx = canvas.getContext('2d');
 const ctxx = canvass.getContext('2d');
 const ctxg = canvasg.getContext('2d');
@@ -54,11 +55,8 @@ const bsRange  = document.getElementById('bs')
 // let tresholdButton = document.getElementById('treshold');
 let showOriginalButton = document.getElementById('showOriginal');
 
-let painted = true;
-let pixels;
 let pixelss;
-let degrees = 0;
-let imgSize;
+let pixelsg;
 let imgSizee;
 let srgb =[];
 let hsl;
@@ -158,8 +156,16 @@ function draw(img) {
     // const testPosition = getTextPos();
     // console.log('testPosition: ', testPosition);
     canvas.style.height = '100%';
+    canvas.style.maxHeight = '350px';
+
     canvass.style.height = '100%';
+    canvass.style.maxHeight = '350px';
+
     canvasg.style.height = '100%';
+    canvasg.style.maxHeight = '350px';
+
+    //canvasm ? canvasm.style.height = '100%' : null;
+    //canvasm ? canvasm.style.maxHeight = '350px' : null;
 
     canvas.width = img.height;
     canvas.height = img.width;
@@ -170,18 +176,30 @@ function draw(img) {
     canvasg.width = img.height;
     canvasg.height = img.width;
 
+    // imgSize = Utils.aspectRatio(
+    //     img.width,
+    //     img.height,
+    //     canvas.width,
+    //     canvas.height
+    // );
     imgSize = Utils.aspectRatio(
         img.width,
         img.height,
-        canvas.width,
-        canvas.height
+        700,
+        350
     );
 
-    imgSizee = Utils.aspectRatio(
-    img.width,
-    img.height,
-    canvass.width,
-    canvass.height
+//     imgSizee = Utils.aspectRatio(
+//         img.width,
+//         img.height,
+//         canvass.width,
+//         canvass.height
+//   );
+imgSizee = Utils.aspectRatio(
+        img.width,
+        img.height,
+        700,
+        350
   );
 
     const centerShift_x = (canvas.width - imgSize.width) / 2;
@@ -189,6 +207,10 @@ function draw(img) {
 
     const centerShift_xx = (canvass.width - imgSizee.width) / 2;
     const centerShift_yy = (canvass.height - imgSizee.height) / 2;
+
+    canvas.style.left = (764-imgSize.width)/2+'px';
+    canvass.style.left = (764-imgSize.width)/2+'px';
+    canvasg.style.left = (764-imgSize.width)/2+'px';
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctxx.clearRect(0, 0, canvass.width, canvass.height);
@@ -198,43 +220,43 @@ function draw(img) {
 
     // ctx.fillStyle = userText;
 
-    img.onload = function() {
-        ctx.drawImage(
-            img,
-            0,
-            0,
-            img.width,
-            img.height,
-            centerShift_x,
-            centerShift_y,
-            imgSize.width,
-            imgSize.height
+    //img.onload = function() {
+    ctx.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        centerShift_x,
+        centerShift_y,
+        imgSize.width,
+        imgSize.height
         );
-    };
+    //};
 
     ctxx.drawImage(
-    img,
-    0,
-    0,
-    img.width,
-    img.height,
-    centerShift_xx,
-    centerShift_yy,
-    imgSizee.width,
-    imgSizee.height
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        centerShift_xx,
+        centerShift_yy,
+        imgSize.width,
+        imgSize.height
   );
 
-  ctxg.drawImage(
-    img,
-    0,
-    0,
-    img.width,
-    img.height,
-    centerShift_xx,
-    centerShift_yy,
-    imgSizee.width,
-    imgSizee.height
-  );
+    ctxg.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        centerShift_xx,
+        centerShift_yy,
+        imgSize.width,
+        imgSize.height
+    );
     // ctx.globalAlpha = 0.95;
     // // ctx.clearRect(0, 0, canvas.width, canvas.height);
     // ctx.font = '40pt Calibri';
@@ -296,14 +318,18 @@ bRange.addEventListener('click', ()=>{
 
 showOriginalButton.addEventListener('mousedown', () => {
     canvass.style.position = null;
+    //canvasg.style.position = null;
+    canvass.style.visibility = "hidden";
     canvasg.style.visibility = "hidden";
-    canvasm.style.visibility = "hidden";
+    canvasm ? canvasm.style.visibility = "hidden" : null;
     showOriginalButton.style.background = 'orange'
   });
 showOriginalButton.addEventListener('mouseup', () => {
     canvass.style.position = 'absolute';
+    canvasg.style.position = 'absolute';
+    canvass.style.visibility = 'visible';
     canvasg.style.visibility = 'visible';
-    canvasm.style.visibility = 'visible';
+    canvasm ? canvasm.style.visibility = 'visible': null;
     showOriginalButton.style.background = '#ffec64'
   });
 
@@ -335,7 +361,19 @@ for(let i =0; i<hslSliders.length; i++){
 let rRangePrevValue;
 rRange.addEventListener('mousedown', ()=>{
     rRangePrevValue = rRange.value
-    console.log(rRangePrevValue)
+    //console.log(rRangePrevValue)
+})
+
+let gRangePrevValue;
+rRange.addEventListener('mousedown', ()=>{
+    gRangePrevValue = gRange.value
+    //console.log(gRangePrevValue)
+})
+
+let bRangePrevValue;
+bRange.addEventListener('mousedown', ()=>{
+    bRangePrevValue = bRange.value
+    //console.log(bRangePrevValue)
 })
 
 //gradient stuff
@@ -393,13 +431,13 @@ undoGradientButton.addEventListener('click', ()=>{
     blendingModes.value = 'none'
 })
 
-    const blendingModes = document.getElementById('blending');
-    blendingModes.addEventListener('change', ()=>{
-        blendMode = blendingModes.value;
-        addGradient(); 
-        // drawBrushedLayer(canvasm)
-        // getBrushData(canvasm, canvasg)
-    })
+const blendingModes = document.getElementById('blending');
+blendingModes.addEventListener('change', ()=>{
+    blendMode = blendingModes.value;
+    addGradient(); 
+    // drawBrushedLayer(canvasm)
+    // getBrushData(canvasm, canvasg)
+})
 
 // masking tests
 //-------------------------------------------------------------------------------
@@ -413,19 +451,21 @@ maskButton.addEventListener('click', ()=>{
     ctxm = canvasm.getContext('2d')
     div.appendChild(canvasm);
     canvasm.style.height = '100%';
-    canvasm.style.maxHeight = '330px';
+    canvasm.style.maxHeight = '350px';
     canvasm.width = img.width;
     canvasm.height = img.height;
-
+    
     imgSizeM = Utils.aspectRatio(
         img.width,
         img.height,
-        canvasm.width,
-        canvasm.height
+        700,
+        350
       );
 
     const centerShift_x = (canvasm.width - imgSizeM.width) / 2;
     const centerShift_y = (canvasm.height - imgSizeM.height) / 2;
+
+    canvasm.style.left = (764-imgSizeM.width)/2+'px';
 
     ctxm.clearRect(0, 0, canvasm.width, canvasm.height);
     ctxm.globalAlpha = 0;
@@ -550,18 +590,23 @@ function addLayer(canvas, ctx){
     layer.style.visibility = 'visible'
     layerCheckbox.style.visibility = 'visible'
     canvasL = document.createElement('canvas');
-    canvasL.style.width = '30px';
-    canvasL.style.height = '20px';
     canvasL.classList.add('.canvasl');
+
+    canvasL.width = img.height;
+    canvasL.height = img.width;
+    let size = Utils.aspectRatio(
+        img.width,
+        img.height,
+        30,
+        20)
+ 
+    canvasL.style.width = size.width+'px';
+    canvasL.style.height = size.height+'px';
+
     ctxl = canvasL.getContext('2d')
-    let layerDiv = document.getElementById('layer')
-    // layerDiv.style.background = 'gray'
     ctxl.fillStyle = "white";
     ctxl.fillRect(0, 0, canvasL.width, canvasL.height);
-    layerDiv.appendChild(canvasL);
-    // ctx.scale(0.2, 0.2)
-    // canvasL.width = canvas.width * 0.2
-    // canvasL.height = canvas.height * 0.2
+    layer.appendChild(canvasL);
     ctxl.drawImage(canvas, 0, 0)
 }
 
