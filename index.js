@@ -164,9 +164,6 @@ function draw(img) {
     canvasg.style.height = '100%';
     canvasg.style.maxHeight = '350px';
 
-    //canvasm ? canvasm.style.height = '100%' : null;
-    //canvasm ? canvasm.style.maxHeight = '350px' : null;
-
     canvas.width = img.height;
     canvas.height = img.width;
 
@@ -176,12 +173,6 @@ function draw(img) {
     canvasg.width = img.height;
     canvasg.height = img.width;
 
-    // imgSize = Utils.aspectRatio(
-    //     img.width,
-    //     img.height,
-    //     canvas.width,
-    //     canvas.height
-    // );
     imgSize = Utils.aspectRatio(
         img.width,
         img.height,
@@ -189,13 +180,7 @@ function draw(img) {
         350
     );
 
-//     imgSizee = Utils.aspectRatio(
-//         img.width,
-//         img.height,
-//         canvass.width,
-//         canvass.height
-//   );
-imgSizee = Utils.aspectRatio(
+    imgSizee = Utils.aspectRatio(
         img.width,
         img.height,
         700,
@@ -448,13 +433,20 @@ maskButton.addEventListener('click', ()=>{
     canvasm = document.createElement('canvas');
     canvasm.classList.add('.canvasm');
     canvasm.style.position = 'absolute'
+    // let delButton = document.createElement('button')
+    // let delIcon = document.createElement('img')
+    // delIcon.classList.add('text-icon')
+    // delButton.classList.add('delete')
+    // delIcon.src = 'public/delete1.png'
+    // delButton.appendChild(delIcon)
+    // div.appendChild(delButton);
     ctxm = canvasm.getContext('2d')
     div.appendChild(canvasm);
     canvasm.style.height = '100%';
     canvasm.style.maxHeight = '350px';
     canvasm.width = img.width;
     canvasm.height = img.height;
-    
+
     imgSizeM = Utils.aspectRatio(
         img.width,
         img.height,
@@ -584,14 +576,54 @@ function getBrushData(mask, target){
 }
 
 //add layer icon
+let count = 1
 function addLayer(canvas, ctx){
-    let layer = document.getElementById('layer')
-    let layerCheckbox= document.getElementById('layerCheckbox')
-    layer.style.visibility = 'visible'
-    layerCheckbox.style.visibility = 'visible'
+    let layerContainer = document.getElementById('layerContainer')
+    //layer group
+    let layerGroup = document.createElement('div')
+    layerGroup.classList.add('layerGroup')
+
+    //canvas group
+    let canvasGroup = document.createElement('div')
+    let name = document.createElement('p')
+    name.innerText = `Layer ${count++}`
+    canvasGroup.classList.add('canvasGroup')
+    layerGroup.appendChild(canvasGroup)
+
+    //checkbox
+    let checkbox = document.createElement('input')
+    checkbox.classList.add('layerCheckbox')
+    checkbox.type = 'radio'
+    checkbox.checked= 'checked'
+    checkbox.style.visibility = 'visible'
+    
+    //layer canvas
+    let buttonGroup = document.createElement('div')
+    buttonGroup.classList.add('buttonGroup')
+    buttonGroup.style.visibility = 'visible'
+    // layerGroup.appendChild(checkbox)
+
+    //delete icon
+    let delButton = document.createElement('button')
+    let delIcon = document.createElement('img')
+    delIcon.classList.add('delete-icon')
+    delButton.classList.add('delete')
+    delIcon.src = 'public/delete1.png'
+    delButton.appendChild(delIcon)
+    // layer.appendChild(delButton);
+
+    //hide icon
+    let hideButton = document.createElement('button')
+    let hideIcon = document.createElement('img')
+    hideIcon.classList.add('hide-icon')
+    hideButton.classList.add('hide')
+    hideIcon.src = 'public/icons8-invisible-24.png'
+    hideButton.appendChild(hideIcon)
+    // layer.appendChild(hideButton);
+
+    //calculate canvas size ratio
     canvasL = document.createElement('canvas');
     canvasL.classList.add('.canvasl');
-
     canvasL.width = img.height;
     canvasL.height = img.width;
     let size = Utils.aspectRatio(
@@ -599,14 +631,20 @@ function addLayer(canvas, ctx){
         img.height,
         30,
         20)
- 
     canvasL.style.width = size.width+'px';
     canvasL.style.height = size.height+'px';
 
     ctxl = canvasL.getContext('2d')
     ctxl.fillStyle = "white";
     ctxl.fillRect(0, 0, canvasL.width, canvasL.height);
-    layer.appendChild(canvasL);
+    canvasGroup.appendChild(checkbox)
+    canvasGroup.appendChild(canvasL);
+    canvasGroup.appendChild(name)
+    layerContainer.appendChild(layerGroup)
+    buttonGroup.appendChild(hideButton);
+    buttonGroup.appendChild(delButton);
+    layerGroup.appendChild(canvasGroup)
+    layerGroup.appendChild(buttonGroup)
     ctxl.drawImage(canvas, 0, 0)
 }
 

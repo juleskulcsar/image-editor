@@ -10,9 +10,30 @@
 </head>
 
 <body>
-  <h3>Image-Editor</h3>
+  <nav class="navbar">
+    <p>about</p>
+    <div class="dropdown">
+      <button class="dropbtn">File
+        <!-- <i class="fa fa-caret-down"></i> -->
+      </button>
+      <div class="dropdown-content">
+        <div class= 'uploadImage'>
+          <label for="selectImage" class="custom-file-upload">
+            Upload Image
+          </label>
+          <input type="file" id="selectImage" />
+        </div>
+        <p class="download">
+          <a download href="#" class="button" id="btn-download">Download Image</a>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
   <div class="top">
       <div class="image-editor-slider-wrap">
+        <p>Light</p>
         <div class="image-editor-sliders">
           <label for="br">Brightness (<span id="br-value">100</span>)</label><br />
           <input id="br" name="br" type="range" min="0" max="200" value="100" />
@@ -21,6 +42,8 @@
           <label for="ct">Contrast (<span id="contrast-value">100</span>)</label><br />
           <input id="ct" name="ct" type="range" min="0" max="200" value="100" />
         </div>
+        <div class="empty-horizontal"></div>
+        <p>Effects</p>
         <div class="image-editor-sliders">
           <label for="opacity">Opacity (<span id="opacity-value">100</span>)</label><br />
           <input id="opacity" name="opacity" type="range" min="0" max="100" value="100" />
@@ -29,6 +52,8 @@
           <label for="blur">Blur (<span id="blur-value">0</span>)</label><br />
           <input id="blur" name="blur" type="range" min="0" max="10" value="0" />
         </div>
+        <div class="empty-horizontal"></div>
+        <p>Color</p>
         <div class="image-editor-sliders">
           <label for="huer">Hue (<span id="hue-value">0</span>)</label><br />
           <input id="huer" name="huer" type="range" min="0" max="360" value="0" />
@@ -61,7 +86,7 @@
     </div>
     <div > 
       <select id="blending">
-        <option value="none">blending mode</option>
+        <option value="none">blending</option>
         <option value="lighten">lighten</option>
         <option value="screen">screen</option>
         <option value="multiply">multiply</option>
@@ -74,6 +99,8 @@
         <option value="soft-light">soft-light</option>
       </select>
     </div>
+    <button id='undogr'><img src="public/undo.png" class='text-icon' /></button>
+    <button id='invisible'><img src="public/icons8-invisible-24.png" class='text-icon' /></button>
     </div>
     <div class="empty-horizontal"></div>
     <p>Overlay</p>
@@ -94,25 +121,12 @@
     <div class="empty-horizontal"></div>
     <p>Adjustment Layers</p>
     <div class="masking">
-      <button id='maskButton'>new adjustment layer</button>
-      <div id="layerContainer" >
-        <input id='layerCheckbox' type='radio' checked="checked">
-        <div id="layer" ></div>
-      </div>
+      <div id="layerContainer"></div>
+      <button id='maskButton'>add new layer</button>
     </div>
   </div>
 </div>
-  <div class="upload-download">
-    <div class="upload-reset">
-      <label for="selectImage" class="custom-file-upload">
-        Upload Image
-      </label>
-      <input type="file" id="selectImage" />
-      <button class="download">
-        <a download href="#" class="button" id="btn-download">Download Image</a>
-      </button>
-    </div>
-  </div>
+<button id='showOriginal'>Show Original</button>
   <div class="controlers">
     <ul class="control-buttons">
       <li class="image-editor-empty-div">
@@ -181,20 +195,6 @@
       <li class="image-editor-submenu">
         <div class="image-editor-filter-wrap">
           <div>
-            <p>Select Overlay</p>
-            <br />
-            <select id="filters">
-              <option value="none">No Overlay</option>
-              <option value="grayscale">Grayscale</option>
-              <option value="sepia">Sepia</option>
-              <option value="red">Red</option>
-              <option value="cold">Cold</option>
-              <option value="warm">Warm</option>
-              <option value="warmdark">Warm Dark</option>
-              <option value="cyan">Cyan</option>
-              <option value="yellow">Yellow</option>
-              <option value="washedout">Washed Out</option>
-            </select>
             <br />
             <br />
             <button type="button" name="button" id="reset" class="reset">
@@ -279,7 +279,7 @@
   <div class="btn-wrapper">
     <div id='colorRange' style="width:80px;height:30px;margin:auto;padding:2px"></div>
     <!-- <button id='treshold'>treshold</button> -->
-    <button id='showOriginal'>Show Original</button>
+    <!-- <button id='showOriginal'>Show Original</button> -->
     <button id='undogr'>Undo Gradient</button>
   </div>
   <br />
