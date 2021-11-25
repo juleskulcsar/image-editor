@@ -187,6 +187,7 @@ function draw(img) {
         350
   );
 
+
     const centerShift_x = (canvas.width - imgSize.width) / 2;
     const centerShift_y = (canvas.height - imgSize.height) / 2;
 
@@ -196,6 +197,10 @@ function draw(img) {
     canvas.style.left = (764-imgSize.width)/2+'px';
     canvass.style.left = (764-imgSize.width)/2+'px';
     canvasg.style.left = (764-imgSize.width)/2+'px';
+
+    canvas.style.top = (664-imgSize.height)/2+'px';
+    canvass.style.top = (664-imgSize.height)/2+'px';
+    canvasg.style.top = (664-imgSize.height)/2+'px';
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctxx.clearRect(0, 0, canvass.width, canvass.height);
@@ -303,11 +308,9 @@ bRange.addEventListener('click', ()=>{
 
 showOriginalButton.addEventListener('mousedown', () => {
     canvass.style.position = null;
-    //canvasg.style.position = null;
     canvass.style.visibility = "hidden";
     canvasg.style.visibility = "hidden";
     canvasm ? canvasm.style.visibility = "hidden" : null;
-    showOriginalButton.style.background = 'orange'
   });
 showOriginalButton.addEventListener('mouseup', () => {
     canvass.style.position = 'absolute';
@@ -315,7 +318,6 @@ showOriginalButton.addEventListener('mouseup', () => {
     canvass.style.visibility = 'visible';
     canvasg.style.visibility = 'visible';
     canvasm ? canvasm.style.visibility = 'visible': null;
-    showOriginalButton.style.background = '#ffec64'
   });
 
 let hslSliders = document.getElementsByClassName('hslSlider');
@@ -327,9 +329,7 @@ for(let i =0; i<hslSliders.length; i++){
 
         // //add the adjustment layer
         // getBrushData(canvasg, canvasg)
-
         ctxg.putImageData(data, 0, 0); 
-
         blendingModes.value === 'none' ? null : addGradient();
         // addGradient();
     })
@@ -346,23 +346,19 @@ for(let i =0; i<hslSliders.length; i++){
 let rRangePrevValue;
 rRange.addEventListener('mousedown', ()=>{
     rRangePrevValue = rRange.value
-    //console.log(rRangePrevValue)
 })
 
 let gRangePrevValue;
 rRange.addEventListener('mousedown', ()=>{
     gRangePrevValue = gRange.value
-    //console.log(gRangePrevValue)
 })
 
 let bRangePrevValue;
 bRange.addEventListener('mousedown', ()=>{
     bRangePrevValue = bRange.value
-    //console.log(bRangePrevValue)
 })
 
 //gradient stuff
-
 const colorStop_0 = document.getElementById("colorStop_0")
 const colorStop_1 = document.getElementById("colorStop_1")
 
@@ -433,13 +429,6 @@ maskButton.addEventListener('click', ()=>{
     canvasm = document.createElement('canvas');
     canvasm.classList.add('.canvasm');
     canvasm.style.position = 'absolute'
-    // let delButton = document.createElement('button')
-    // let delIcon = document.createElement('img')
-    // delIcon.classList.add('text-icon')
-    // delButton.classList.add('delete')
-    // delIcon.src = 'public/delete1.png'
-    // delButton.appendChild(delIcon)
-    // div.appendChild(delButton);
     ctxm = canvasm.getContext('2d')
     div.appendChild(canvasm);
     canvasm.style.height = '100%';
@@ -458,6 +447,7 @@ maskButton.addEventListener('click', ()=>{
     const centerShift_y = (canvasm.height - imgSizeM.height) / 2;
 
     canvasm.style.left = (764-imgSizeM.width)/2+'px';
+    canvasm.style.top = (664-imgSizeM.height)/2+'px';
 
     ctxm.clearRect(0, 0, canvasm.width, canvasm.height);
     ctxm.globalAlpha = 0;
@@ -494,8 +484,6 @@ maskButton.addEventListener('click', ()=>{
 //----------------------------------------------------------------------
 let brushData;
 function brush() {
-    // ctxM = canvasm.getContext('2d');
-    //ctx.fillStyle = "rgba('255, 0, 0, 0.1')";
     ctxm.fillStyle = "red";
     ctxm.strokeStyle = "red";
     ctxm.globalAlpha = "0.01";

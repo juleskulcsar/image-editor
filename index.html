@@ -29,10 +29,8 @@
       </div>
     </div>
   </nav>
-
-
   <div class="top">
-      <div class="image-editor-slider-wrap">
+    <div class="image-editor-slider-wrap">
         <p>Light</p>
         <div class="image-editor-sliders">
           <label for="br">Brightness (<span id="br-value">100</span>)</label><br />
@@ -62,308 +60,178 @@
           <label for="saturate">Saturation (<span id="saturation-value">100</span>)</label><br />
           <input id="saturation" name="saturate" type="range" min="0" max="500" value="100" />
         </div>
-      </div>
-  <div class="container">
-    <div id="textDiv"></div>
-    <div class="canvas-container"></div>
-  </div>
-  <div class="top-right-section">
-    <p>Gradient</p>
-    <div class="gradient-container">
-      <div class='color-blendingModes'>
-        <div>
-          <!-- <label class="input-color-label" for="head">Stop 0</label> -->
-          <div class="input-color-container">
-            <input type="color" id="colorStop_0" name="head" value="#ed6868">
-          </div>
-        </div>
-        <div>
-          <!-- <label class="input-color-label" for="body" >Stop 1</label> -->
-          <div class="input-color-container">
-            <input type="color" id="colorStop_1" name="body" value="#000000">
-          </div>
-        </div>
-    </div>
-    <div > 
-      <select id="blending">
-        <option value="none">blending</option>
-        <option value="lighten">lighten</option>
-        <option value="screen">screen</option>
-        <option value="multiply">multiply</option>
-        <option value="difference">difference</option>
-        <option value="hue">hue</option>
-        <option value="exclusion">exclusion</option>
-        <option value="color">color</option>
-        <option value="saturation">saturation</option>
-        <option value="luminosity">luminosity</option>
-        <option value="soft-light">soft-light</option>
-      </select>
-    </div>
-    <button id='undogr'><img src="public/undo.png" class='text-icon' /></button>
-    <button id='invisible'><img src="public/icons8-invisible-24.png" class='text-icon' /></button>
-    </div>
-    <div class="empty-horizontal"></div>
-    <p>Overlay</p>
-    <div>
-      <select id="filters">
-        <option value="none">No Overlay</option>
-        <option value="grayscale">Grayscale</option>
-        <option value="sepia">Sepia</option>
-        <option value="red">Red</option>
-        <option value="cold">Cold</option>
-        <option value="warm">Warm</option>
-        <option value="warmdark">Warm Dark</option>
-        <option value="cyan">Cyan</option>
-        <option value="yellow">Yellow</option>
-        <option value="washedout">Washed Out</option>
-      </select>
-    </div>
-    <div class="empty-horizontal"></div>
-    <p>Adjustment Layers</p>
-    <div class="masking">
-      <div id="layerContainer"></div>
-      <button id='maskButton'>add new layer</button>
-    </div>
-    <div class="empty-horizontal"></div>
-    <div class="hsl">
-      <div class="controllers">
-        <p class="p-hsl">hue</p>
-        <div>
-          <!-- <label for="r" style="color: orange;">H &nbsp</label> -->
-          <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="g" style="color: orange"> </label> -->
-          <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="b" style="color: orange"></label> -->
-          <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
-        </div>
-      </div>
-      <div class="controllers">
-        <p class="p-hsl">saturation</p>
-        <div>
-          <!-- <label for="rs" style="color: orange;">S &nbsp</label> -->
-          <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="gs" style="color: orange"></label> -->
-          <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="bs" style="color: orange"></label> -->
-          <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-      </div>
-      <div class="controllers">
-        <p class="p-hsl">lightness</p>
-        <div>
-          <!-- <label for="rl" style="color: orange;">L &nbsp</label> -->
-          <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="gl" style="color: orange"></label> -->
-          <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-        <div>
-          <!-- <label for="bl" style="color: orange"></label> -->
-          <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<button id='showOriginal'>Show Original</button>
-  <div class="controlers">
-    <ul class="control-buttons">
-      <li class="image-editor-empty-div">
-        <div class="empty-horizontal"></div>
-      </li>
-
-      <li class="image-editor-submenu">
-        <!-- <div class="controllers">
-          <label for="r" style="color: orange;">H &nbsp</label>
-          <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
-          <label for="g" style="color: orange"> </label>
-          <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
-          <label for="b" style="color: orange"></label>
-          <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
-        </div>
-        <div class="controllers">
-          <label for="rs" style="color: orange;">S &nbsp</label>
-          <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
-          <label for="gs" style="color: orange"></label>
-          <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
-          <label for="bs" style="color: orange"></label>
-          <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div>
-        <div class="controllers">
-          <label for="rl" style="color: orange;">L &nbsp</label>
-          <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
-          <label for="gl" style="color: orange"></label>
-          <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
-          <label for="bl" style="color: orange"></label>
-          <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
-        </div> -->
-      </li>
-
-      <li class="partition">
-        <div class="empty"></div>
-      </li>
-
-      <li class="image-editor-submenu">
-        <div class="image-editor-checkbox-wrap">
-          <div>
-            <button type="button" name="button" class="rotate">
-              Rotate Image
-            </button>
-          </div>
-          <br />
-          <div>
-            <button disabled type="button" name="button" id="invertColors">
-              Invert Colors
-            </button>
-            <input type="checkbox" class="invert-Colors" />
-          </div>
-          <br />
-          <div>
-            <button disabled type="button" name="button" id="rgbsplit">
-              RGB Split
-            </button>
-            <input type="checkbox" class="rgb-split" />
-          </div>
-        </div>
-      </li>
-
-      <li class="partition">
-        <div class="empty"></div>
-      </li>
-
-      <li class="image-editor-submenu">
-        <div class="image-editor-filter-wrap">
-          <div>
-            <br />
-            <br />
-            <button type="button" name="button" id="reset" class="reset">
-              <img src="public/reset.png" class='text-icon' />
-            </button>
-          </div>
-        </div>
-      </li>
-
-      <li class="partition">
-        <div class="empty"></div>
-      </li>
-
-      <li class="image-editor-submenu">
-        <div class="image-editor-text-wrap">
-          <div class="image-editor-text-submenu">
+      <div class="empty-horizontal"></div>
+      <p>Text</p>
+      <div class="text-option">
+        <div class="add-text">
             <button type="button" name="button" id="add-text">
-              <img src="public/text.png" class='text-icon' />
+              <img src="public/text1.png" class='text-icon' />
             </button>
-          </div>
-          <br />
-          <div class="image-editor-text-submenu">
             <button type="button" name="button" id="save-text">
-              <img src="public/save.png" class='text-icon' /><img src="public/text.png" class='text-icon' />
+              <img src="public/check.png" class='text-icon' /><img src="public/text1.png" class='text-icon' />
             </button>
-          </div>
-          <br />
-          <div class="image-editor-text-submenu">
             <button type="button" name="button" id="remove-text">
-              <img src="public/delete.png" class='text-icon' /><img src="public/text.png" class='text-icon' />
+              <img src="public/delete1.png" class='text-icon' /><img src="public/text1.png" class='text-icon' />
             </button>
-          </div>
-          <br />
         </div>
-      </li>
-
-      <li class="image-editor-submenu">
-        <div class="image-editor-filter-wrap">
-          <div class="image-editor-text-submenu">
-            <select id="fonts">
-              <option value="none">Select Font</option>
-              <option value="Raleway">Raleway</option>
-              <option value="Suez One">Suez One</option>
-              <option value="Open Sans">Open Sans</option>
-            </select>
-            <br />
-          </div>
-        </div>
-        <br />
-        <br />
-        <div class="font-slider-wrap">
-          <div class="font-sliders">
+        <select class="add-text" id="fonts">
+            <option value="none">Select Font</option>
+            <option value="Raleway">Raleway</option>
+            <option value="Suez One">Suez One</option>
+            <option value="Open Sans">Open Sans</option>
+        </select>
+        <div class="add-text">
             <label for="font-size">Font Size (<span id="font-size-value">30</span>)</label><br />
             <input id="font-size" name="font-size" type="range" min="0" max="100" value="30" />
-          </div>
         </div>
-        <br />
-
-        <div class="font-option-wrap">
-          <div class="fas-options">
-            <button type="button" name="button" id="bold-text" class="text-options">
-              <img src="public/bold.png" class='text-icon' />
-            </button>
-          </div>
-          <div class="fas-options">
-            <button type="button" name="button" id="italic-text" class="text-options">
-              <img src="public/italic.png" class='text-icon' />
-            </button>
-          </div>
+        <div class="add-text">
+          <button type="button" name="button" id="bold-text" class="text-options">
+            <img src="public/bold1.png" class='text-icon' />
+          </button>
+          <button type="button" name="button" id="italic-text" class="text-options">
+            <img src="public/italic1.png" class='text-icon' />
+          </button>
         </div>
-        <!-- </div> -->
-      </li>
-    </ul>
-  </div>
-  <div class="controllers" style="display: flex;
-              justify-content: space-between;">
-    <div class='circle' id='red'></div>
-    <div class='circle' id='green'></div>
-    <div class='circle' id='blue'></div>
-  
-  </div>
-  <div class="btn-wrapper">
-    <div id='colorRange' style="width:80px;height:30px;margin:auto;padding:2px"></div>
-    <!-- <button id='treshold'>treshold</button> -->
-    <!-- <button id='showOriginal'>Show Original</button> -->
-    <button id='undogr'>Undo Gradient</button>
-  </div>
-  <br />
-  <br />
-  <!-- <div class='color-blendingModes'>
-    <label for="head">ColorStop_0</label>
-    <input type="color" id="colorStop_0" name="head" value="#000000">
-  
-    <label for="body" style="margin-left: 10px;">ColorStop_1</label>
-    <input type="color" id="colorStop_1" name="body" value="#000000">
-  
-    <select id="blending">
-      <option value="none">blending mode</option>
-      <option value="lighten">lighten</option>
-      <option value="screen">screen</option>
-      <option value="multiply">multiply</option>
-      <option value="difference">difference</option>
-      <option value="hue">hue</option>
-      <option value="exclusion">exclusion</option>
-      <option value="color">color</option>
-      <option value="saturation">saturation</option>
-      <option value="luminosity">luminosity</option>
-      <option value="soft-light">soft-light</option>
-    </select>
-  </div>
-  <div class="masking">
-    <button id='maskButton'>add adjustment</button>
-    <div id="layerContainer" style="border: 1px solid gray; height: 200px; width: 100px; width: 100px; display: flex">
-      <input id='layerCheckbox' type='radio' checked="checked" style=" visibility: hidden">
-      <div id="layer" style=" visibility: hidden; width: 30px; height: 20px; border: 1px solid gray;"></div>
+      </div>
     </div>
-  </div> -->
+    <div class="container">
+      <div id="textDiv"></div>
+      <div class="canvas-container">
+        <button id='showOriginal'>Show Original</button>
+        <button type="button" name="button" id="reset" class="reset">
+          <img src="public/reset1.png" class='text-icon' />
+        </button>
+      </div>
+      <div class="image-editor-checkbox-wrap">
+        <div>
+          <button type="button" name="button" class="rotate">
+            Rotate Image
+          </button>
+        </div>
+        <div>
+          <button disabled type="button" name="button" id="invertColors">
+            Invert Colors
+          </button>
+          <input type="checkbox" class="invert-Colors" />
+        </div>
+        <div>
+          <button disabled type="button" name="button" id="rgbsplit">
+            RGB Split
+          </button>
+          <input type="checkbox" class="rgb-split" />
+        </div>
+      </div>
+    </div>
+    <div class="top-right-section">
+      <p>Gradient</p>
+      <div class="gradient-container">
+        <div class='color-blendingModes'>
+          <div>
+          <!-- <label class="input-color-label" for="head">Stop 0</label> -->
+            <div class="input-color-container">
+              <input type="color" id="colorStop_0" name="head" value="#ed6868">
+            </div>
+          </div>
+          <div>
+          <!-- <label class="input-color-label" for="body" >Stop 1</label> -->
+            <div class="input-color-container">
+              <input type="color" id="colorStop_1" name="body" value="#000000">
+            </div>
+          </div>
+        </div>
+        <div > 
+          <select id="blending">
+            <option value="none">blending</option>
+            <option value="lighten">lighten</option>
+            <option value="screen">screen</option>
+            <option value="multiply">multiply</option>
+            <option value="difference">difference</option>
+            <option value="hue">hue</option>
+            <option value="exclusion">exclusion</option>
+            <option value="color">color</option>
+            <option value="saturation">saturation</option>
+            <option value="luminosity">luminosity</option>
+            <option value="soft-light">soft-light</option>
+          </select>
+        </div>
+          <button id='undogr'><img src="public/undo.png" class='text-icon' /></button>
+          <button id='invisible'><img src="public/icons8-invisible-24.png" class='text-icon' /></button>
+      </div>
+      <div class="empty-horizontal"></div>
+      <p>Overlay</p>
+      <div>
+        <select id="filters">
+          <option value="none">No Overlay</option>
+          <option value="grayscale">Grayscale</option>
+          <option value="sepia">Sepia</option>
+          <option value="red">Red</option>
+          <option value="cold">Cold</option>
+          <option value="warm">Warm</option>
+          <option value="warmdark">Warm Dark</option>
+          <option value="cyan">Cyan</option>
+          <option value="yellow">Yellow</option>
+          <option value="washedout">Washed Out</option>
+        </select>
+      </div>
+      <div class="empty-horizontal"></div>
+      <p>Adjustment Layers</p>
+      <div class="masking">
+        <div id="layerContainer"></div>
+        <button id='maskButton'>add new layer</button>
+      </div>
+      <div class="empty-horizontal"></div>
+      <div class="hsl">
+        <div class="controllers">
+          <p class="p-hsl">hue</p>
+          <div class="rangeSlider-group">
+            <label for="r"><span style="color: red">R</span></label>
+            <input id="r" name="r" type="range" min="-30" max="30" value="0" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="g"><span style="color: green">G</span></label>
+            <input id="g" name="g" type="range" min="0" max="255" value="125" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="b"><span style="color: blue">B</span></label>
+            <input id="b" name="b" type="range" min="0" max="255" value="125" class="hslSlider" />
+          </div>
+        </div>
+        <div class="controllers">
+          <p class="p-hsl">saturation</p>
+          <div class="rangeSlider-group">
+            <label for="rs"><span style="color: red">R</span></label>
+            <input id="rs" name="rs" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="gs"><span style="color: green">G</span></label>
+            <input id="gs" name="gs" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="bs"><span style="color: blue">B</span></label>
+            <input id="bs" name="bs" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+        </div>
+        <div class="controllers">
+          <p class="p-hsl">lightness</p>
+          <div class="rangeSlider-group">
+            <label for="rl"><span style="color: red">R</span></label>
+            <input id="rl" name="rl" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="gl"><span style="color: green">G</span></label>
+            <input id="gl" name="gl" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+          <div class="rangeSlider-group">
+            <label for="bl"><span style="color: blue">B</span></label>
+            <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="index.js"></script>
   <script src="utils.js"></script>
   <script src="filters.js"></script>
   <script src="drawtext.js"></script>
 </body>
-
 </html>
