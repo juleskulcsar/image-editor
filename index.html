@@ -99,6 +99,7 @@
       <div class="canvas-container">
         <button id='showOriginal'>Show Original</button>
         <button type="button" name="button" id="reset" class="reset">
+          <p class="tooltiptext">Reset image</p>
           <img src="public/reset1.png" class='text-icon' />
         </button>
       </div>
@@ -176,22 +177,26 @@
       <div class="empty-horizontal"></div>
       <p>Adjustment Layers</p>
       <div class="masking">
-        <div id="layerContainer"></div>
-        <button id='maskButton'>add new layer</button>
-      </div>
-      <div class="empty-horizontal"></div>
-
-
-      <div class="controls">
-        <div>
-          <div><input type="range" id="radius" min="2" max="40" value="16"><label for="radius">size</label></div>
-          <div><input type="range" id="hardness" min="0" max="1" step="0.01" value="0.5"><label for="radius">feather</label>
-          </div>
-          <div><input type="range" id="alpha" min="0" max="1" step="0.01" value="0.5"><label for="alpha">alpha</label></div>
-          <button type="button" id="reset">reset</button>
+        <div class="layer-section">
+          <div id="layerContainer"></div>
+          <button id='maskButton'>add new layer</button>
         </div>
-        <div >
-          <canvas id="brush-display" width="80" height="80"></canvas>
+        <div class="controls">
+          <p>Brush</p>
+          <div class="brush-canvas-container">
+            <p class="tooltiptext">Double click to reset</p>
+            <canvas id="brush-display" width="80" height="80"></canvas>
+          </div>
+          <div>
+            <div class="brush-range"><label for="radius">Vertical radius</label><input type="range" id="radius" class="dbclick" min="2" max="40" value="20"></div>
+            <div class="brush-range"><label for="radius-h">Horizontal radius</label><input type="range" id="radius-h" class="dbclick" min="2" max="40" value="20"></div>
+            <div class="brush-range" style="display: none"><label for="radius">Feather</label><input type="range" id="hardness"  class="dbclick"min="0" max="1" step="0.01" value="0.5"></div>
+            <div class="brush-range"><label for="alpha">Alpha</label><input type="range" id="alpha" class="dbclick" min="0" max="1" step="0.01" value="0.5"></div>
+            <!-- <button type="button" id="reset">reset</button> -->
+          </div>
+          <!-- <div>
+            <canvas id="brush-display" width="80" height="80"></canvas>
+          </div> -->
         </div>
       </div>
 
@@ -243,6 +248,7 @@
             <input id="bl" name="bl" type="range" min="0" max="100" value="50" class="hslSlider" />
           </div>
         </div>
+      </div>
       </div>
     </div>
   </div>

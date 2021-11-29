@@ -8,11 +8,6 @@ body {
     margin: 0;
 }
 
-.controlers {
-    text-align: center;
-    display: flex;
-}
-
 .p-hsl {
     margin-top: 1em;
 }
@@ -25,19 +20,14 @@ body {
     width: 100%;
 }
 
-.control-buttons {
-    display: inline-block;
-    vertical-align: top;
-}
-
 .canvas-container {
     border-radius: 2px;
     height: 600px;
     width: 700px;
-    background-color: black;
+    background-color: rgb(14, 13, 13);
     padding: 30px;
     display: inline-block;
-    border: 2px solid gray;
+    border: 2px solid #555454;
     margin: auto;
     position: relative;
     text-align: center;
@@ -48,16 +38,6 @@ canvas {
     margin: 0 auto;
 }
 
-.image-editor-submenu {
-    display: inline-block;
-    vertical-align: top;
-    text-align: start;
-}
-
-.image-editor-empty-div {
-    display: block;
-}
-
 .image-editor-slider-wrap {
     display: inline-block;
     /* width: 300px; */
@@ -65,8 +45,7 @@ canvas {
     text-align: left;
     margin: 1em;
 }
-.image-editor-checkbox-wrap,
-.image-editor-filter-wrap {
+.image-editor-checkbox-wrap {
     display: inline-block;
     width: 180px;
     white-space: normal;
@@ -74,14 +53,6 @@ canvas {
     display: flex;
     width: 100%;
     justify-content: space-between;
-}
-.image-editor-text-wrap {
-    padding: 0 30px 0 0;
-}
-.image-editor-text-submenu,
-.font-slider-wrap,
-.font-option-wrap {
-    display: inline-block;
 }
 
 .image-editor-sliders {
@@ -92,16 +63,6 @@ canvas {
     display: inline;
 }
 
-.upload-reset {
-    width: 800px;
-    text-align: center;
-    display: inline-block;
-}
-
-.upload-download {
-    text-align: center;
-    padding: 20px;
-}
 #selectImage {
     color: transparent;
     visibility: hidden;
@@ -134,17 +95,6 @@ p {
     background: transparent;
 }
 
-.partition {
-    display: inline-block;
-}
-
-.empty {
-    height: 120px;
-    color: #3c3c3c;
-    border-left: 2px solid #3c3c3c;
-    padding: 0 30px 0 0;
-}
-
 .empty-horizontal {
     color: #3c3c3c;
     border-top: 2px solid #3c3c3c;
@@ -152,22 +102,6 @@ p {
     margin: 10px 0 10px 0;
 }
 
-/* .reset,
-.rotate, */
-/* .text-options {
-    box-shadow: 0px 1px 0px 0px #fff6af;
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    background-color: #ffec64;
-    border: 1px solid #ffaa22;
-    display: inline-block;
-    cursor: pointer;
-    color: #333333;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 3px 10px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #ffee66;
-} */
 .reset:hover,
 .rotate:hover,
 .text-options:hover {
@@ -176,7 +110,6 @@ p {
     color: black;
 }
 
-/* .reset, */
 .rotate:active {
     position: relative;
     top: 1px;
@@ -189,13 +122,13 @@ p {
 }
 
 .btn-active {
-    box-shadow: 0px 1px 0px 0px #fff6af;
+    box-shadow: 0px 1px 0px 0px #ffaa22;
     /* background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%); */
-    /* background-color: #ffec64; */
+    /* background-color: #ffaa22; */
     border: 1px solid #ffaa22;
     display: inline-block;
     cursor: pointer;
-    color: #333333;
+    color: #333;
     font-size: 15px;
     font-weight: bold;
     padding: 3px 15px;
@@ -219,7 +152,6 @@ input[type='range'] {
     cursor: pointer;
     border-radius: 0;
     height: 1px;
-    /* margin-left: 1em; */
 }
 
 .rangeSlider-group {
@@ -232,7 +164,6 @@ input[type='range'] {
     width: 10px;
     height: 10px;
     background: #000000;
-    /* background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%); */
     border: 1px solid #ffaa22;
     border-radius: 50%;
 }
@@ -263,10 +194,6 @@ textarea:focus {
     border: 1px dotted white;
 }
 
-.fas-options {
-    display: inline-block;
-}
-
 ::-webkit-input-placeholder {
     color: peachpuff;
     font-size: 13px;
@@ -295,7 +222,7 @@ textarea:focus {
 
 .top {
     display: flex;
-    width: 90%;
+    width: 95%;
     margin: auto;
     justify-content: space-between;
 }
@@ -304,7 +231,7 @@ textarea:focus {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 15rem;
+    /* width: 15rem; */
 }
 
 .top-right-section {
@@ -376,7 +303,7 @@ label {
     padding: 3px 7px;
     text-decoration: none;
     border: 1px solid rgba(185, 185, 185, 0.45);
-    margin: 0 0.2em 0 0.2em;
+    /* margin: 0 0.2em 0 0.2em; */
 }
 
 .buttonGroup {
@@ -397,6 +324,7 @@ label {
     display: flex;
     flex-direction: column;
     overflow: scroll;
+    background: #181818;
 }
 
 .layerGroup {
@@ -404,7 +332,7 @@ label {
     flex-direction: row;
     justify-content: space-between;
     height: 20px;
-    width: 90%;
+    width: 95%;
     margin-bottom: 1em;
 }
 
@@ -412,7 +340,7 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 50%;
+    width: 60%;
 }
 
 /* Navbar container */
@@ -452,7 +380,8 @@ label {
 }
 
 .navbar p:hover,
-.dropdown:hover .dropbtn {
+.dropdown:hover,
+.dropbtn:hover {
     background-color: #ffaa22;
     color: black;
 }
@@ -507,4 +436,66 @@ label {
 .add-text {
     margin-bottom: 1em;
     width: 100%;
+}
+
+.masking {
+    display: flex;
+    flex-direction: row;
+    width: 20rem;
+}
+
+.controls {
+    width: 20%;
+    margin-left: 1em;
+    margin-top: -1.3em;
+}
+.layer-section {
+    width: 55%;
+}
+
+.brush-range {
+    width: fit-content;
+    /* margin-top: 0.7em; */
+}
+input[type='range'] {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.brush-canvas-container {
+    margin-left: 1em;
+}
+
+#undogr:hover,
+#invisible:hover,
+#add-text:hover,
+#remove-text:hover,
+#save-text:hover,
+#maskButton:hover,
+.hide:hover,
+.delete:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black;
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: transparent;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+#reset:hover .tooltiptext {
+    visibility: visible;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+.brush-canvas-container:hover .tooltiptext {
+    visibility: visible;
 }
