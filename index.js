@@ -180,19 +180,9 @@ function draw(img) {
         350
     );
 
-    imgSizee = Utils.aspectRatio(
-        img.width,
-        img.height,
-        700,
-        350
-  );
-
 
     const centerShift_x = (canvas.width - imgSize.width) / 2;
     const centerShift_y = (canvas.height - imgSize.height) / 2;
-
-    const centerShift_xx = (canvass.width - imgSizee.width) / 2;
-    const centerShift_yy = (canvass.height - imgSizee.height) / 2;
 
     canvas.style.left = (764-imgSize.width)/2+'px';
     canvass.style.left = (764-imgSize.width)/2+'px';
@@ -230,11 +220,12 @@ function draw(img) {
         0,
         img.width,
         img.height,
-        centerShift_xx,
-        centerShift_yy,
+        centerShift_x,
+        centerShift_y,
         imgSize.width,
         imgSize.height
   );
+
 
     ctxg.drawImage(
         img,
@@ -242,8 +233,8 @@ function draw(img) {
         0,
         img.width,
         img.height,
-        centerShift_xx,
-        centerShift_yy,
+        centerShift_x,
+        centerShift_y,
         imgSize.width,
         imgSize.height
     );
@@ -259,8 +250,8 @@ function draw(img) {
     // ctx.fillText('My TEXT!!!!!!!!', 20, 20);
     Utils.rotate(0);
     pixels = ctx.getImageData(0, 0, imgSize.width, imgSize.height);
-    pixelss = ctxx.getImageData(0, 0, imgSizee.width, imgSizee.height);
-    pixelsg = ctxg.getImageData(0, 0, imgSizee.width, imgSizee.height);
+    pixelss = ctxx.getImageData(0, 0, imgSize.width, imgSize.height);
+    pixelsg = ctxg.getImageData(0, 0, imgSize.width, imgSize.height);
 }
 
 //testing stuff
@@ -331,7 +322,6 @@ for(let i =0; i<hslSliders.length; i++){
         // getBrushData(canvasg, canvasg)
         ctxg.putImageData(data, 0, 0); 
         blendingModes.value === 'none' ? null : addGradient();
-        // addGradient();
     })
 }
 
@@ -365,12 +355,10 @@ const colorStop_1 = document.getElementById("colorStop_1")
 let color_0, color_1;
 
 colorStop_0.addEventListener('change', ()=>{
-    console.log("colorStop_0.value",colorStop_0.value )
     color_0 = colorStop_0.value
 })
 
 colorStop_1.addEventListener('change', ()=>{
-    console.log("colorStop_1.value",colorStop_1.value )
     color_1 = colorStop_1.value
 })
 
@@ -413,9 +401,17 @@ undoGradientButton.addEventListener('click', ()=>{
 })
 
 const blendingModes = document.getElementById('blending');
+let gradientCount = 0
 blendingModes.addEventListener('change', ()=>{
+    gradientCount++;
     blendMode = blendingModes.value;
     addGradient(); 
+    //if gradient layer already exists, clear it before adding new one
+    let gradientGroup = document.querySelector('.gradient');
+    gradientGroup ? gradientGroup.remove() : null;
+    
+    addLayer(canvasg, "Gradient");
+    drawBrushedLayer(canvasg)
     // drawBrushedLayer(canvasm)
     // getBrushData(canvasm, canvasg)
 })
@@ -459,7 +455,7 @@ maskButton.addEventListener('click', ()=>{
     }
 
     ctxm.rotate((degrees * Math.PI) / 180);
-    ctxm.drawImage(img, -img.width / 2, -img.height / 2);
+    // ctxm.drawImage(img, -img.width / 2, -img.height / 2);
 
     ctxm.drawImage(
         img,
@@ -475,7 +471,7 @@ maskButton.addEventListener('click', ()=>{
 
 
     brush()
-    addLayer(canvasm, ctxm)
+    addLayer(canvasm, "Layer", ctxm)
     drawBrushedLayer(canvasm)
 })
 
@@ -485,54 +481,100 @@ maskButton.addEventListener('click', ()=>{
 let brushData;
 function brush() {
     ctxm.fillStyle = "red";
-    ctxm.strokeStyle = "red";
-    ctxm.globalAlpha = "0.01";
-    ctxm.lineWidth = 0;
-    ctxm.globalCompositeOperation = "source-over"; 
+    // ctxm.strokeStyle = "red";
+    // ctxm.globalAlpha = "0.03";
+    // ctxm.lineWidth = 0;
+    // ctxm.globalCompositeOperation = "source-over"; 
   
-    let isDrawing, lastPoint;
+    let isDrawing, lastPoint, isDown, mouseCircle ;
 
     canvasm.addEventListener('mousedown', function(e){
         isDrawing = true;
+        isDown = true;
+        canvasm.style.cursor = 'none'; 
         lastPoint = Utils.getMousePos(canvasm, e);
+
+        mouseCircle = document.createElement('div');
+        mouseCircle.classList.add('mouse-circle');
+        let revisedMousePosX = 0,
+                revisedMousePosY = 0,
+                mousePosX = e.pageX;
+                mousePosY = e.pageY;
+        revisedMousePosX += (mousePosX - revisedMousePosX)
+        revisedMousePosY += (mousePosY - revisedMousePosY)     
+
+        const style = `position: absolute;
+            border: 1px solid white;
+            border-radius: 50%;
+            pointer-events: none !important;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0)`
+        mouseCircle.style.cssText = style;
+        document.body.appendChild(mouseCircle);
+  
     })
   
     canvasm.addEventListener('mousemove', function(e) {
         if (!isDrawing) return;
+
+        if(isDown===true){
+            let revisedMousePosX = 0,
+                revisedMousePosY = 0,
+                mousePosX = e.pageX;
+                mousePosY = e.pageY;
+
+            function mouseFollow() {
+                requestAnimationFrame(mouseFollow);
+                revisedMousePosX += (mousePosX - revisedMousePosX)
+                revisedMousePosY += (mousePosY - revisedMousePosY);
+                const radius = radiusElem.value;
+                if(mouseCircle){
+                    mouseCircle.style.top = revisedMousePosY-radius/2 +  'px';
+                    mouseCircle.style.left = revisedMousePosX-radius/2 + 'px';
+                }
+            }
+            mouseFollow();
+        }
+
         let currentPoint = Utils.getMousePos(canvasm, e);
         let dist = distanceBetween(lastPoint, currentPoint);
         let angle = angleBetween(lastPoint, currentPoint);
 
+        const radius = radiusElem.value;
+        const hradius = hradiusElem.value;
+        const hardness = hardnessElem.value;
+        alpha = alphaElem.value;
+        mouseCircle.style.width = hradius + 'px';
+        mouseCircle.style.height = radius + 'px';
+        strokeGradient = createFeatherGradient1(radius, hardness);
     
         for (var i = 0; i < dist; i+=3) {
-
+            let s = i/dist
             let wtf1 = lastPoint.x - canvasm.width/2
             let wtf2 = lastPoint.y - canvasm.height/2
-
             let x = wtf1 + (Math.sin(angle) * i) - 25;
             let y = wtf2 + (Math.cos(angle) * i) - 25;
+            ctxm.strokeStyle = strokeGradient;
+            ctxm.globalAlpha = alpha/4;
             ctxm.beginPath();
-            ctxm.arc(x+10, y+10, 20, false, Math.PI * 2, false);
-            ctxm.closePath();
-            ctxm.fill();
+            // ctxm.arc(x+20, y+20, radius*2, false, Math.PI*2, false);
+            ctxm.ellipse(x+20, y+20, hradius*2, radius*2, 0, 2, Math.PI*2, false);
+            ctxm.fill()
             ctxm.stroke();
+
         } 
         lastPoint = currentPoint;
         //draw layer icon
         drawBrushedLayer(canvasm)
-        
     });
-  
-    canvasm.onmouseup = function() {
+    canvasm.addEventListener('mouseup', function(e){
         isDrawing = false;
-        // getBrushData(canvasm)
+        isDown = false;
+        mouseCircle = document.querySelector('.mouse-circle')
         drawBrushedLayer(canvasm)
         getBrushData(canvasm, canvasm)
-    };
-
-    // brushData = ctxm.getImageData(0,0, canvasm.width, canvasm.height)
-    // return brushData;
-    // getBrushData(canvasm)
+        document.body.removeChild(mouseCircle);
+        canvasm.style.cursor = 'default';
+    })
 }
 
 function distanceBetween(point1, point2) {
@@ -542,7 +584,7 @@ function angleBetween(point1, point2) {
     return Math.atan2( point2.x - point1.x, point2.y - point1.y );
   }
 function clearit() {
-    ctxM.clearRect(0,0, canvasm.width, canvasm.height);
+    ctxm.clearRect(0,0, canvasm.width, canvasm.height);
 }
 
 //get brush pixels
@@ -565,16 +607,16 @@ function getBrushData(mask, target){
 
 //add layer icon
 let count = 1
-function addLayer(canvas, ctx){
+function addLayer(canvas, layerName, ctx){
     let layerContainer = document.getElementById('layerContainer')
     //layer group
     let layerGroup = document.createElement('div')
-    layerGroup.classList.add('layerGroup')
+    layerGroup.classList.add("layerGroup", `${count}`)
 
     //canvas group
     let canvasGroup = document.createElement('div')
     let name = document.createElement('p')
-    name.innerText = `Layer ${count++}`
+    name.setAttribute("contenteditable","true")
     canvasGroup.classList.add('canvasGroup')
     layerGroup.appendChild(canvasGroup)
 
@@ -589,29 +631,38 @@ function addLayer(canvas, ctx){
     let buttonGroup = document.createElement('div')
     buttonGroup.classList.add('buttonGroup')
     buttonGroup.style.visibility = 'visible'
-    // layerGroup.appendChild(checkbox)
 
     //delete icon
     let delButton = document.createElement('button')
     let delIcon = document.createElement('img')
     delIcon.classList.add('delete-icon')
-    delButton.classList.add('delete')
+    delButton.classList.add("delete", `${count}`)
     delIcon.src = 'public/delete1.png'
     delButton.appendChild(delIcon)
-    // layer.appendChild(delButton);
 
     //hide icon
     let hideButton = document.createElement('button')
     let hideIcon = document.createElement('img')
-    hideIcon.classList.add('hide-icon')
-    hideButton.classList.add('hide')
+    hideIcon.classList.add("hide-icon")
+    hideButton.classList.add('hide', `${count}`)
     hideIcon.src = 'public/icons8-invisible-24.png'
     hideButton.appendChild(hideIcon)
-    // layer.appendChild(hideButton);
+
+    if(layerName ==="Layer"){
+        name.innerText = `${layerName} ${count++}`
+    } else if (layerName === "Gradient"){
+        name.innerText = layerName
+        layerGroup.classList.add('gradient')
+    } else {
+        name.innerText = layerName
+    }
 
     //calculate canvas size ratio
     canvasL = document.createElement('canvas');
     canvasL.classList.add('.canvasl');
+    canvasL.style.padding = '1px';
+    canvasL.style.border = '1px solid rgba(185, 185, 185, 0.85)';
+    canvasL.style.marginRight = "0.5em"
     canvasL.width = img.height;
     canvasL.height = img.width;
     let size = Utils.aspectRatio(
@@ -619,6 +670,7 @@ function addLayer(canvas, ctx){
         img.height,
         30,
         20)
+
     canvasL.style.width = size.width+'px';
     canvasL.style.height = size.height+'px';
 
@@ -639,4 +691,106 @@ function addLayer(canvas, ctx){
 function drawBrushedLayer(canvas){
     let ctxll = canvasL.getContext('2d')
     ctxll.drawImage(canvas, 0, 0, canvasL.width, canvasL.height)
+}
+
+//---------brush size test--------------------------
+const brushDisplayCtx = document.querySelector('#brush-display').getContext('2d');
+const radiusElem = document.querySelector('#radius');
+const hradiusElem = document.querySelector('#radius-h');
+const hardnessElem = document.querySelector('#hardness');
+const alphaElem = document.querySelector('#alpha');
+const brushDisplay = document.querySelector('#brush-display')
+
+radiusElem.addEventListener('input', updateBrushSettings);
+hradiusElem.addEventListener('input', updateBrushSettings);
+hardnessElem.addEventListener('input', updateBrushSettings);
+alphaElem.addEventListener('input', updateBrushSettings);
+brushDisplay.addEventListener('dblclick', e=> {
+    radiusElem.value = 26;
+    hradiusElem.value = 26;
+    alphaElem.value = 0.5;
+    updateBrushSettings();
+})
+
+const brushCtx = document.createElement('canvas').getContext('2d');
+let featherGradient;
+let strokeGradient;
+
+function createFeatherGradient(radius, hardness) {
+  const innerRadius = Math.min(radius * hardness, radius - 1);
+  const gradient = brushCtx.createRadialGradient(
+    0, 0, innerRadius,
+    0, 0, radius);
+  gradient.addColorStop(0, 'rgba(255, 0, 0, 0)');
+  gradient.addColorStop(1, 'rgba(255, 0, 0, 1)');
+  
+  return gradient;
+}
+
+function createFeatherGradient1(radius, hardness) {
+  const innerRadius = Math.min(radius * hardness, radius - 1);
+  const gradient = ctxm.createRadialGradient(
+    0, 0, innerRadius,
+    0, 0, radius);
+  gradient.addColorStop(0, 'rgba(255, 0, 0, 0)');
+  gradient.addColorStop(.43, `rgba(255, 0, 0, ${alpha})`);
+  gradient.addColorStop(.57, `rgba(255, 0, 0, ${alpha})`);
+  gradient.addColorStop(1, `rgba(255, 0, 0, 0`);
+  return gradient;
+}
+
+function feather(ctx) {
+  // feather the brush
+  ctx.save();
+  ctx.fillStyle = featherGradient;
+  ctx.globalCompositeOperation = 'destination-out';
+  const {width, height} = ctx.canvas;
+  ctx.translate(width / 2, height / 2);
+  ctx.fillRect(-width / 2, -height / 2, width, height);  
+  ctx.restore();
+}
+
+function updateBrushSettings() {
+  const radius = radiusElem.value;
+  radiusElem.nextElementSibling.value = radius
+  const hradius = hradiusElem.value;
+  hradiusElem.nextElementSibling.value = hradius
+  const hardness = hardnessElem.value;
+//   hardnessElem.nextElementSibling.value = hardness
+  alpha = alphaElem.value;
+  alphaElem.nextElementSibling.value = alpha
+  featherGradient = createFeatherGradient(radius, hardness);
+//   brushCtx.canvas.width = radius * 2;
+//   brushCtx.canvas.height = radius * 2;
+
+  let scaleX = 1/(brushDisplay.width / hradius/2);
+  let scaleY = 1/(brushDisplay.height / radius/2);
+  
+  {
+    const ctx = brushDisplayCtx;
+    const {width, height} = ctx.canvas;
+    ctx.clearRect(0, 0, width, height);
+    ctx.setTransform(scaleX,0,0,scaleY,0,0)
+    ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
+    ctx.fillRect(width / 2 - radius, height / 2 - radius, radius * 2, radius * 2);
+    feather(ctx);
+  }
+}
+updateBrushSettings()
+
+function updateBrush(x, y) {
+  let width = brushCtx.canvas.width;
+  let height = brushCtx.canvas.height;
+  let srcX = x - width / 2;
+  let srcY = y - height / 2;
+  // draw it in the middle of the brush
+  let dstX = (brushCtx.canvas.width - width) / 2;
+  let dstY = (brushCtx.canvas.height - height) / 2;
+
+  brushCtx.drawImage(
+    ctx.canvas,
+    srcX, srcY, width, height,
+    dstX, dstY, width, height);    
+  
+  feather(brushCtx);
 }

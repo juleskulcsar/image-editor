@@ -35,7 +35,7 @@ body {
 
 canvas {
     max-width: 600px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .image-editor-slider-wrap {
@@ -339,7 +339,7 @@ label {
 .canvasGroup {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     width: 60%;
 }
 
@@ -498,4 +498,14 @@ input[type='range'] {
 }
 .brush-canvas-container:hover .tooltiptext {
     visibility: visible;
+}
+
+output {
+    font-size: 10px;
+    color: #acacac;
+    margin-left: 0.4em;
+}
+.input-output {
+    display: flex;
+    flex-direction: row;
 }

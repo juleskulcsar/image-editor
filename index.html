@@ -188,10 +188,31 @@
             <canvas id="brush-display" width="80" height="80"></canvas>
           </div>
           <div>
-            <div class="brush-range"><label for="radius">Vertical radius</label><input type="range" id="radius" class="dbclick" min="2" max="40" value="20"></div>
-            <div class="brush-range"><label for="radius-h">Horizontal radius</label><input type="range" id="radius-h" class="dbclick" min="2" max="40" value="20"></div>
-            <div class="brush-range" style="display: none"><label for="radius">Feather</label><input type="range" id="hardness"  class="dbclick"min="0" max="1" step="0.01" value="0.5"></div>
-            <div class="brush-range"><label for="alpha">Alpha</label><input type="range" id="alpha" class="dbclick" min="0" max="1" step="0.01" value="0.5"></div>
+            <div class="brush-range">
+              <label for="radius">Vertical radius</label>
+              <div class="input-output">
+                <input type="range" id="radius" class="dbclick" min="10" max="40" value="26">
+                <output>26</output>
+              </div>
+            </div>
+            <div class="brush-range">
+              <label for="radius-h">Horizontal radius</label>
+              <div class="input-output">
+                <input type="range" id="radius-h" class="dbclick" min="10" max="40" value="26">
+                <output>26</output>
+              </div>
+            </div>
+            <div class="brush-range" style="display: none">
+              <label for="radius">Feather</label>
+              <input type="range" id="hardness"  class="dbclick"min="0" max="1" step="0.01" value="0.5">
+            </div>
+            <div class="brush-range">
+              <label for="alpha">Alpha</label>
+              <div class="input-output">
+                <input type="range" id="alpha" class="dbclick" min="0" max="1" step="0.01" value="0.5">
+                <output>0.5</output>
+              </div>
+            </div>
             <!-- <button type="button" id="reset">reset</button> -->
           </div>
           <!-- <div>
