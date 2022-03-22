@@ -1,7 +1,6 @@
-// masking tests
-//-------------------------------------------------------------------------------
 let canvasm;
 let ctxm;
+let brushData;
 const maskButton  = document.getElementById('maskButton')
 maskButton.addEventListener('click', ()=>{
     canvasm = document.createElement('canvas');
@@ -37,7 +36,6 @@ maskButton.addEventListener('click', ()=>{
     }
 
     ctxm.rotate((degrees * Math.PI) / 180);
-    // ctxm.drawImage(img, -img.width / 2, -img.height / 2);
 
     ctxm.drawImage(
         img,
@@ -51,16 +49,11 @@ maskButton.addEventListener('click', ()=>{
         imgSizeM.height
     );
 
-
     brush()
-    addLayer(canvasm, "Layer", ctxm)
+    addLayer(canvasm, "Layer", 'adjustmentLayer')
     drawBrushedLayer(canvasm)
 })
 
-
-//brush tests
-//----------------------------------------------------------------------
-let brushData;
 function brush() {
     ctxm.fillStyle = "red";
     let isDrawing, lastPoint, isDown, mouseCircle ;
@@ -181,11 +174,14 @@ function getBrushData(mask, target){
 
 //add layer icon
 let count = 1
-function addLayer(canvas, layerName, ctx){
+function addLayer(canvas, layerName, layerType){
     let layerContainer = document.getElementById('layerContainer')
     //layer group
+    let isOverlay = document.querySelector('.overlay')
+    let removeOverlay = isOverlay && layerType==="overlay" ? true : false
     let layerGroup = document.createElement('div')
-    layerGroup.classList.add("layerGroup", `${count}`)
+    layerGroup.classList.add("layerGroup", `${count}`, layerType)
+    count++;
 
     //canvas group
     let canvasGroup = document.createElement('div')
@@ -223,7 +219,7 @@ function addLayer(canvas, layerName, ctx){
     hideButton.appendChild(hideIcon)
 
     if(layerName ==="Layer"){
-        name.innerText = `${layerName} ${count++}`
+        name.innerText = `${layerName} ${count}`
     } else if (layerName === "Gradient"){
         name.innerText = layerName
         layerGroup.classList.add('gradient')
@@ -234,6 +230,7 @@ function addLayer(canvas, layerName, ctx){
     //calculate canvas size ratio
     canvasL = document.createElement('canvas');
     canvasL.classList.add('.canvasl');
+    // canvasL.classList.add(layerName);
     canvasL.style.padding = '1px';
     canvasL.style.border = '1px solid rgba(185, 185, 185, 0.85)';
     canvasL.style.marginRight = "0.5em"
@@ -254,7 +251,13 @@ function addLayer(canvas, layerName, ctx){
     canvasGroup.appendChild(checkbox)
     canvasGroup.appendChild(canvasL);
     canvasGroup.appendChild(name)
-    layerContainer.appendChild(layerGroup)
+    //check if layer type overlay exsists. If true, remove before adding new overlay selected
+    if(removeOverlay){
+        isOverlay.replaceWith(layerGroup)
+        count--
+    } else {
+        layerContainer.prepend(layerGroup)
+    }
     buttonGroup.appendChild(hideButton);
     buttonGroup.appendChild(delButton);
     layerGroup.appendChild(canvasGroup)
@@ -267,7 +270,7 @@ function drawBrushedLayer(canvas){
     ctxll.drawImage(canvas, 0, 0, canvasL.width, canvasL.height)
 }
 
-//---------brush size test--------------------------
+//brush size
 const brushDisplayCtx = document.querySelector('#brush-display').getContext('2d');
 const radiusElem = document.querySelector('#radius');
 const hradiusElem = document.querySelector('#radius-h');
@@ -320,7 +323,8 @@ function updateBrushSettings() {
   alpha = alphaElem.value;
   alphaElem.nextElementSibling.value = alpha
   featherGradient = createFeatherGradient(radius, hardness);
- //scale brush display according to h/v radius
+  
+  //scale brush display according to h/v radius
   let scaleX = 1/(brushDisplay.width / hradius/2);
   let scaleY = 1/(brushDisplay.height / radius/2);
   

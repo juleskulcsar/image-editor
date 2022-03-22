@@ -2,18 +2,15 @@ let div = document.querySelector('.canvas-container');
 let canvas = document.createElement('canvas');
 let canvass = document.createElement('canvas');
 let canvasg = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+const ctxx = canvass.getContext('2d');
+const ctxg = canvasg.getContext('2d');
 canvas.classList.add('.canvas');
 canvass.classList.add('.canvass');
 canvasg.classList.add('.canvasg');
 canvas.style.position = 'absolute'
 canvass.style.position = 'absolute'
 canvasg.style.position = 'absolute'
- 
-const ctx = canvas.getContext('2d');
-const ctxx = canvass.getContext('2d');
-const ctxg = canvasg.getContext('2d');
-ctxg.globalAlpha = 0.5;
-let img = new Image();
 
 let grayscaleValue = document.getElementById('gs-value');
 let blurValue = document.getElementById('blur-value');
@@ -36,11 +33,6 @@ let form = document.getElementById('imageEditor');
 let button = document.getElementById('btn-download');
 let filter = document.getElementById('filters');
 
-let painted = true;
-let pixels;
-let degrees = 0;
-let imgSize;
-
 const rRange  = document.getElementById('r')
 const gRange  = document.getElementById('g')
 const bRange  = document.getElementById('b')
@@ -55,6 +47,14 @@ const bsRange  = document.getElementById('bs')
 const showOriginalButton = document.getElementById('showOriginal');
 const undoGradientButton = document.getElementById('undogr');
 const hslSliders = document.getElementsByClassName('hslSlider');
+
+ctxg.globalAlpha = 0.5;
+let img = new Image();
+
+let painted = true;
+let pixels;
+let degrees = 0;
+let imgSize;
 
 let pixelss;
 let pixelsg;
@@ -72,7 +72,7 @@ let blendMode;
 
 //--------------------Event Listeners-------------------//
 
-selectImage.addEventListener('change', e => Utils.selectImg(e));
+selectImage.addEventListener('click', e => Utils.selectImg(e));
 
 rotateButton.addEventListener('click', () => {
     degrees = (degrees + 90) % 360;
@@ -107,43 +107,70 @@ button.addEventListener('click', () => Utils.donwloadImage());
 filter.addEventListener('change', () => {
     Utils.resetFilter();
     const filterToApply = filter.value;
-    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let imageData = ctxx.getImageData(0, 0, canvas.width, canvas.height);
     switch (filterToApply) {
         case 'grayscale':
             imageData = Filters.bwEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Grayscale", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'sepia':
             imageData = Filters.sepiaEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Sepia", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'red':
             imageData = Filters.redEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Red", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'cold':
             imageData = Filters.coldEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Cold", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'warm':
             imageData = Filters.warmEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Warm", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'warmdark':
             imageData = Filters.darkWarmEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Warm Dark", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'cyan':
             imageData = Filters.cyanEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Cyan", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'yellow':
             imageData = Filters.yellowEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Yellow", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         case 'washedout':
             imageData = Filters.washedOutEffect(imageData);
-            ctx.putImageData(imageData, 0, 0);
+            ctxx.putImageData(imageData, 0, 0);
+            addLayer(canvass, "Washedout", "overlay")
+            drawBrushedLayer(canvass)
+            addGradient()
             break;
         default:
             draw(img);
@@ -220,23 +247,27 @@ function draw(img) {
         imgSize.height
   );
 
-
-    ctxg.drawImage(
-        img,
-        0,
-        0,
-        img.width,
-        img.height,
-        centerShift_x,
-        centerShift_y,
-        imgSize.width,
-        imgSize.height
-    );
+    let imageDataBackgroundCanvas = ctxx.getImageData(0, 0, canvas.width, canvas.height);
+    ctxg.putImageData(imageDataBackgroundCanvas, 0, 0);
+    // ctxg.drawImage(
+    //     img,
+    //     0,
+    //     0,
+    //     img.width,
+    //     img.height,
+    //     centerShift_x,
+    //     centerShift_y,
+    //     imgSize.width,
+    //     imgSize.height
+    // );
 
     Utils.rotate(0);
     pixels = ctx.getImageData(0, 0, imgSize.width, imgSize.height);
     pixelss = ctxx.getImageData(0, 0, imgSize.width, imgSize.height);
     pixelsg = ctxg.getImageData(0, 0, imgSize.width, imgSize.height);
+
+    // addLayer(canvass, "BG")
+    // drawBrushedLayer(canvass)
 }
 
 //testing stuff
@@ -322,3 +353,28 @@ let bRangePrevValue;
 bRange.addEventListener('mousedown', ()=>{
     bRangePrevValue = bRange.value
 })
+
+//canvas filters
+//brightness
+function brightness(pixels, adjustment) {
+  var d = pixels.data;
+  for (var i=0; i<d.length; i+=4) {
+    d[i] += adjustment;
+    d[i+1] += adjustment;
+    d[i+2] += adjustment;
+  }
+  return pixels;
+};
+
+//treshold
+function treshold(pixels, threshold) {
+  var d = pixels.data;
+  for (var i=0; i<d.length; i+=4) {
+    var r = d[i];
+    var g = d[i+1];
+    var b = d[i+2];
+    var v = (0.2126*r + 0.7152*g + 0.0722*b >= threshold) ? 255 : 0;
+    d[i] = d[i+1] = d[i+2] = v
+  }
+  return pixels;
+};

@@ -1,8 +1,12 @@
 const Utils = {
     selectImg(e) {
         const URL = window.URL;
-        let url = URL.createObjectURL(e.target.files[0]);
-        img.src = url;
+        let url;
+        if(e.target.files.length !== 0){
+            url = URL.createObjectURL(e.target.files[0]);
+            img.src = url;
+        }
+        // img.src = url;
         img.onload = function() {
             if (img.width > 2000 || img.height > 2000) {
                 alert('image too big');
